@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SetStateAction, Dispatch } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "src/hooks/useAuth";
 
 type Props = {
@@ -17,8 +18,15 @@ type Props = {
 
 function DesktopNavBar({ onMenuClick, guest }: Props) {
   const { user, logout } = useAuth();
+  let navigate = useNavigate();
+
   const handleClick = () => {
-    logout();
+    if (user) {
+      logout();
+    } else {
+      console.log("made it here");
+      navigate("sign-in");
+    }
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -39,7 +47,9 @@ function DesktopNavBar({ onMenuClick, guest }: Props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Gigiddy
           </Typography>
-          <Button color="inherit" onClick={handleClick}>Logout</Button>
+          <Button color="inherit" onClick={handleClick}>
+            {user ? "Logout" : "Login"}
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

@@ -1,8 +1,8 @@
 import { Fragment, Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Navigate, Route } from "react-router-dom";
 import AuthLayout from "./layouts/auth/AuthLayout";
 import GuestGuard from "./components/GuestGuard";
-import LinerLoadingScreen from "./components/progress-bar/LinerLoadingScreen";
+import LinearLoadingScreen from "./components/progress-bar/LinearLoadingScreen";
 import AuthGuard from "./components/AuthGuard";
 import Dashboard from "./layouts/dashboard/Dashboard";
 
@@ -12,7 +12,7 @@ const routes = [
     path: "/sign-in",
     guard: GuestGuard,
     layout: AuthLayout,
-    component: lazy(() => import("src/views/auth/TestLogin")),
+    component: lazy(() => import("src/views/auth/Login")),
   },
   {
     exact: true,
@@ -21,10 +21,14 @@ const routes = [
     layout: Dashboard,
     component: lazy(() => import("src/views/home/Home")),
   },
+  {
+    path: '*',
+    component: () => <Navigate to="/" />,
+  },
 ];
 
 export const renderRoutes = (routes) => (
-  <Suspense fallback={<LinerLoadingScreen />}>
+  <Suspense fallback={<LinearLoadingScreen />}>
     <Routes>
       {routes.map((route, i) => {
         const Guard = route.guard || Fragment;

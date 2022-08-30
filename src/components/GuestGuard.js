@@ -7,7 +7,7 @@ function GuestGuard({ children }) {
   const { user } = useAuth();
 
   if (user) {
-    return <Navigate to={{ pathname: "/dashboard" }} />;
+    return <Navigate to="/dashboard" replace={true}/>;
   }
 
   return <>{children}</>;

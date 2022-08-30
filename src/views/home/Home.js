@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
-import TestLogin from "../auth/TestLogin";
+import TestLogin from "../auth/Login";
 
 function Home() {
 

@@ -7,14 +7,14 @@ type Props = {
   onMenuClick: Dispatch<SetStateAction<any>>;
 };
 
-function NavBar({ onMenuClick, guest }: Props) {
+function NavBar({ onMenuClick }: Props) {
   return (
     <Box>
       <Hidden smDown>
-        <DesktopNavBar onMenuClick={onMenuClick} guest />
+        <DesktopNavBar onMenuClick={onMenuClick} />
       </Hidden>
       <Hidden smUp>
-        <MobileNavBar onMenuClick={onMenuClick} guest />
+        <MobileNavBar onMenuClick={onMenuClick} />
       </Hidden>
     </Box>
   );

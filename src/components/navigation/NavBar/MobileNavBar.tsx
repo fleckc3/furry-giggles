@@ -1,7 +1,9 @@
-import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Box, Toolbar, Typography } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { Menu, MoreVert } from "@mui/icons-material";
 import { SetStateAction, Dispatch } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuth from "src/hooks/useAuth";
 
 type Props = {
   guest?: boolean;
@@ -9,8 +11,16 @@ type Props = {
 };
 
 function MobileNavBar({ onMenuClick, guest }: Props) {
+  const { user, logout } = useAuth();
+  let navigate = useNavigate();
+
   const handleClick = () => {
-    // onMenuClick();
+    if (user) {
+      logout();
+    } else {
+      console.log("made it here");
+      navigate("/sign-in");
+    }
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -28,9 +38,9 @@ function MobileNavBar({ onMenuClick, guest }: Props) {
             Gigiddy
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit">
-            <MoreVert />
-          </IconButton>
+          <Button color="inherit" onClick={handleClick}>
+            {user ? "Logout" : "Login"}
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
