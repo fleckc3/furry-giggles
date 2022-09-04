@@ -5,6 +5,7 @@ type EmailInputProps = {
   name: string;
   rest?: any;
   required?: boolean;
+  size?: "small" | "medium" | undefined;
 };
 
 function EmailInput({ rules, name, ...rest }: EmailInputProps) {
@@ -19,6 +20,8 @@ function EmailInput({ rules, name, ...rest }: EmailInputProps) {
     <TextFieldInput
       name={name}
       type="email"
+      label="Email"
+      variant="outlined"
       autoComplete="email"
       rules={validationRules}
       {...rest}

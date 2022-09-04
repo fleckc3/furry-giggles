@@ -22,6 +22,8 @@ function DesktopNavBar({ onMenuClick, guest }: Props) {
 
   const handleClick = () => {
     if (user) {
+      console.log("made it to user");
+
       logout();
     } else {
       console.log("made it here");

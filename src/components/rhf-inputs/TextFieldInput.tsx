@@ -3,6 +3,7 @@ import {
   InputAdornment,
   TextField,
   TextFieldProps,
+  OutlinedTextFieldProps
 } from "@mui/material";
 import { Controller, RegisterOptions } from "react-hook-form";
 
@@ -13,9 +14,11 @@ type Props = {
   required?: boolean;
   isLoading?: boolean;
   rules?: RegisterOptions;
+  variant?: string;
+  size?: string;
 };
 
-export type TextFieldInputProps = Props & TextFieldProps;
+export type TextFieldInputProps = Props & TextFieldProps & OutlinedTextFieldProps;
 
 const MAX_LENGTH = 256;
 

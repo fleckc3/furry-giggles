@@ -1,12 +1,21 @@
 import { Box, Container, Typography } from "@mui/material";
-import TestLogin from "../auth/Login";
+import TestLogin from "../auth/SignIn";
 
 function Home() {
-
   return (
-    <Box>
+    <Box
+      sx={{
+        height: "100vh",
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Container>
-        <Typography variant="h4">Home</Typography>
+        <Typography textAlign="center" variant="h4">
+          Welcome Home
+        </Typography>
         {/* <TestLogin /> */}
       </Container>
     </Box>

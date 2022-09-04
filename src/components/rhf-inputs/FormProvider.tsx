@@ -1,17 +1,19 @@
 import { ReactNode } from "react";
-import { FormProvider as Form, UseFormReturn } from "react-hook-form";
+import { FormProvider as Form, UseFormReturn, FormProviderProps } from "react-hook-form";
 
-type FormProviderProps = {
+type Props = {
   children: ReactNode;
   methods: UseFormReturn<any>;
   onSubmit: VoidFunction;
 };
 
+type ProviderProps = Props & FormProviderProps;
+
 export default function FormProvider({
   children,
   onSubmit,
   methods,
-}: FormProviderProps) {
+}: ProviderProps) {
   return (
     <Form {...methods}>
       <form onSubmit={onSubmit} noValidate>

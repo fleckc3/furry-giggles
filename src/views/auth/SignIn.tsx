@@ -10,12 +10,13 @@ import {
   Typography,
 } from "@mui/material";
 import { EmailInput } from "src/components/rhf-inputs";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import useAuth from "src/hooks/useAuth";
 import { useForm, FormProvider } from "react-hook-form";
 import TextFieldInput from "src/components/rhf-inputs/TextFieldInput";
 
-function Register() {
+function SignIn() {
+  const navigate = useNavigate();
   const methods = useForm({
     defaultValues: {
       email: "",
@@ -26,11 +27,12 @@ function Register() {
 
   const { handleSubmit } = methods;
 
-  const { registerEmailPassword } = useAuth();
+  const { loginEmailPassword } = useAuth();
 
-  const registerHandler = (formValues: { email: string; password: string }) => {
+  const loginHandler = (formValues: { email: string; password: string }) => {
     const { email, password } = formValues;
-    registerEmailPassword(email, password);
+    loginEmailPassword(email, password);
+    navigate("/home");
   };
 
   return (
@@ -54,7 +56,7 @@ function Register() {
             spacing={3}
           >
             <Card>
-              <CardHeader title="Register" />
+              <CardHeader title="Signin" />
               <FormProvider {...methods}>
                 <form>
                   <CardContent>
@@ -81,14 +83,14 @@ function Register() {
                       color="primary"
                       type="submit"
                       fullWidth
-                      onClick={handleSubmit(registerHandler)}
+                      onClick={handleSubmit(loginHandler)}
                     >
-                      Register
+                      Login
                     </Button>
                   </CardActions>
-                  <Link style={{ textDecoration: "none" }} to="/sign-in">
+                  <Link style={{ textDecoration: "none" }} to="/register">
                     <Typography textAlign="center" color="primary" gutterBottom>
-                      Click here to login!
+                      Click here to register!
                     </Typography>
                   </Link>
                 </form>
@@ -101,4 +103,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default SignIn;
