@@ -1,13 +1,8 @@
-import ThemeProvider from "./theme";
-import Dashboard from "src/layouts/dashboard/Dashboard";
-import { AuthProvider } from "src/context/AuthContext";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignIn from "./views/auth/SignIn";
-import Register from "./views/auth/Register";
-import Home from "./views/home/Home";
-import LandingPage from "./views/landing-page/LandingPage";
-import AppRoutes from "./AppRoutes";
-import { QueryClient, QueryClientProvider } from "react-query";
+import ThemeProvider from './theme';
+import { AuthProvider } from 'src/context/AuthContext';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
 
@@ -18,15 +13,6 @@ function App() {
         <BrowserRouter>
           <AuthProvider>
             <AppRoutes />
-            {/* <Dashboard>
-              <Routes>
-                <Route path="/sign-in" element={<SignIn />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/home" element={<Home />} />
-                <Route index path="/" element={<LandingPage />} />
-                <Route path="*" element={<p>There's nothing here: 404!</p>} />
-              </Routes>
-            </Dashboard> */}
           </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>

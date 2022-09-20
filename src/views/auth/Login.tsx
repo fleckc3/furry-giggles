@@ -10,32 +10,29 @@ import {
   Typography,
 } from '@mui/material';
 import { EmailInput } from 'src/components/rhf-inputs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from 'src/hooks/useAuth';
 import { useForm, FormProvider } from 'react-hook-form';
 import TextFieldInput from 'src/components/rhf-inputs/TextFieldInput';
 
-function Register() {
+function Login() {
+  const navigate = useNavigate();
   const methods = useForm({
     defaultValues: {
       email: '',
       password: '',
-      confirmPassword: '',
     },
     mode: 'onBlur',
   });
 
   const { handleSubmit } = methods;
 
-  const { registerEmailPassword } = useAuth();
+  const { loginEmailPassword } = useAuth();
 
-  const registerHandler = (formValues: {
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
+  const loginHandler = (formValues: { email: string; password: string }) => {
     const { email, password } = formValues;
-    registerEmailPassword(email, password);
+    loginEmailPassword(email, password);
+    navigate('/home');
   };
 
   return (
@@ -50,7 +47,7 @@ function Register() {
     >
       <Container maxWidth="sm">
         <Card>
-          <CardHeader title="Register" />
+          <CardHeader title="Login" />
           <FormProvider {...methods}>
             <form>
               <CardContent>
@@ -66,16 +63,6 @@ function Register() {
                     required
                     fullWidth
                   />
-
-                  <TextFieldInput
-                    name="confirmPassword"
-                    variant="outlined"
-                    size="small"
-                    label="Confirm Password"
-                    type="password"
-                    required
-                    fullWidth
-                  />
                 </Stack>
               </CardContent>
               <CardActions sx={{ px: 2 }}>
@@ -84,14 +71,14 @@ function Register() {
                   color="primary"
                   type="submit"
                   fullWidth
-                  onClick={handleSubmit(registerHandler)}
+                  onClick={handleSubmit(loginHandler)}
                 >
-                  Register
+                  Login
                 </Button>
               </CardActions>
-              <Link style={{ textDecoration: 'none' }} to="/login">
+              <Link style={{ textDecoration: 'none' }} to="/register">
                 <Typography textAlign="center" color="primary" gutterBottom>
-                  Click here to login!
+                  Click here to register!
                 </Typography>
               </Link>
             </form>
@@ -102,4 +89,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
