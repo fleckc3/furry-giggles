@@ -6,6 +6,7 @@ import SignIn from "./views/auth/SignIn";
 import Register from "./views/auth/Register";
 import Home from "./views/home/Home";
 import LandingPage from "./views/landing-page/LandingPage";
+import AppRoutes from "./AppRoutes";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
@@ -16,15 +17,16 @@ function App() {
       <ThemeProvider>
         <BrowserRouter>
           <AuthProvider>
-            {/* <AppRoutes /> */}
-            <Dashboard>
+            <AppRoutes />
+            {/* <Dashboard>
               <Routes>
                 <Route path="/sign-in" element={<SignIn />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/home" element={<Home />} />
-                <Route path="/" element={<LandingPage />} />
+                <Route index path="/" element={<LandingPage />} />
+                <Route path="*" element={<p>There's nothing here: 404!</p>} />
               </Routes>
-            </Dashboard>
+            </Dashboard> */}
           </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
