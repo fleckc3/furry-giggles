@@ -1,15 +1,14 @@
-import { Box, Container, Typography } from "@mui/material";
-// import TestLogin from "../auth/Login";
+import { Box, Container, Typography } from '@mui/material';
 
 function Home() {
   return (
     <Box
       sx={{
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        height: '100vh',
+        width: '100vw',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <Container>

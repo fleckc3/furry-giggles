@@ -29,7 +29,7 @@ function AuthLayout({ children }: Props) {
       }}
     >
       <CssBaseline />
-      <NavBar onMenuClick={handleMenuClick} guest />
+      <NavBar onMenuClick={handleMenuClick} />
       <DesktopSideDrawer isOpen={isOpen} close={() => setIsOpen(false)} />
       <MobileSideDrawer
         open={isOpen}

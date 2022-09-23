@@ -1,9 +1,17 @@
-import { AppBar, Button, Box, Toolbar, Typography } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import { Menu, MoreVert } from "@mui/icons-material";
-import { SetStateAction, Dispatch } from "react";
-import { useNavigate } from "react-router-dom";
-import useAuth from "src/hooks/useAuth";
+import {
+  AppBar,
+  Button,
+  Box,
+  Toolbar,
+  Typography,
+  Avatar,
+} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import { Menu } from '@mui/icons-material';
+import { SetStateAction, Dispatch } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from 'src/hooks/useAuth';
 
 type Props = {
   guest?: boolean;
@@ -18,28 +26,38 @@ function MobileNavBar({ onMenuClick, guest }: Props) {
     if (user) {
       logout();
     } else {
-      console.log("made it here");
-      navigate("/sign-in");
+      console.log('made it here');
+      navigate('/sign-in');
     }
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" color="primary" sx={{ top: "auto", bottom: 0 }}>
+      <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-            onClick={onMenuClick}
+          {guest ? (
+            <Avatar sx={{ bgcolor: 'secondary.main' }}>
+              <EventAvailableIcon />
+            </Avatar>
+          ) : (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+              onClick={onMenuClick}
+            >
+              <Menu />
+            </IconButton>
+          )}
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, ml: guest ? 2 : undefined }}
           >
-            <Menu />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Gigiddy
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Button color="inherit" onClick={handleClick}>
-            {user ? "Logout" : "Login"}
+            {user ? 'Logout' : 'Login'}
           </Button>
         </Toolbar>
       </AppBar>

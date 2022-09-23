@@ -1,15 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
 
 function Chat() {
   return (
     <Box
       sx={{
-        height: "100%",
+        height: '100%',
         width: 300,
-        backgroundColor: "background.paper",
+        backgroundColor: 'background.paper',
         pt: {
-          xs: "none",
-          sm: "64px",
+          xs: 'none',
+          sm: '64px',
         },
       }}
     >

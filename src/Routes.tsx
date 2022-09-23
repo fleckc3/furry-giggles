@@ -1,9 +1,10 @@
 import ProtectedRoute from './components/ProtectedRoute';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import GuestRoute from './components/GuestRoute';
 import Dashboard from './layouts/dashboard/Dashboard';
-import { Fragment, lazy, Suspense } from 'react';
 import Landing from './layouts/landing/Landing';
 import LinearLoadingScreen from './components/progress-bar/LinearLoadingScreen';
+import { Route, Routes as Switch, Navigate } from 'react-router-dom';
+import { Fragment, lazy, Suspense } from 'react';
 
 const routes = [
   {
@@ -13,16 +14,19 @@ const routes = [
     component: lazy(() => import('src/views/home')),
   },
   {
+    guard: GuestRoute,
     layout: Landing,
     path: '/login',
     component: lazy(() => import('src/views/auth/Login')),
   },
   {
+    guard: GuestRoute,
     layout: Landing,
     path: '/register',
     component: lazy(() => import('src/views/auth/Register')),
   },
   {
+    guard: GuestRoute,
     layout: Landing,
     path: '/',
     component: lazy(() => import('src/views/landing-page')),
@@ -43,7 +47,7 @@ interface TRoute {
 export function renderRoutes(routes: any) {
   return (
     <Suspense fallback={<LinearLoadingScreen />}>
-      <Routes>
+      <Switch>
         {routes.map((route: TRoute, i: number) => {
           const Guard = route.guard || Fragment;
           const Layout = route.layout || Fragment;
@@ -63,13 +67,13 @@ export function renderRoutes(routes: any) {
             />
           );
         })}
-      </Routes>
+      </Switch>
     </Suspense>
   );
 }
 
-function AppRoutes() {
+function Routes() {
   return renderRoutes(routes);
 }
 
-export default AppRoutes;
+export default Routes;

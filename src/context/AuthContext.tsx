@@ -3,9 +3,9 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
-} from "firebase/auth";
-import { useState, useEffect, createContext } from "react";
-import { auth } from "src/firebase-config";
+} from 'firebase/auth';
+import { useState, useEffect, createContext } from 'react';
+import { auth } from 'src/firebase-config';
 
 const initialState = {
   user: null,
@@ -13,15 +13,15 @@ const initialState = {
 
 interface ContextDefaultValue {
   user: any | null;
-  registerEmailPassword: (arg0: string, arg1: string) => void;
-  loginEmailPassword: (arg0: string, arg1: string) => void;
+  registerEmailPassword: (arg0: string, arg1: string) => Promise<string>;
+  loginEmailPassword: (arg0: string, arg1: string) => Promise<string>;
   logout: VoidFunction;
 }
 
 export const AuthContext = createContext<ContextDefaultValue>({
   ...initialState,
-  registerEmailPassword: () => null,
-  loginEmailPassword: () => null,
+  registerEmailPassword: async () => '',
+  loginEmailPassword: async () => '',
   logout: () => null,
 });
 
@@ -32,32 +32,32 @@ export const AuthProvider = ({ children }: any) => {
     registerEmail: string,
     registerPassword: string
   ) => {
+    let response;
     try {
-      const user = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
-      console.log(user);
+      response = 'SUCCESS';
     } catch (error) {
-      console.log(error.message);
+      response = error.message;
     }
+    return response;
   };
 
   const loginEmailPassword = async (
     loginEmail: string,
     loginPassword: string
   ) => {
+    let response;
     try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
+      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      response = 'SUCCESS';
     } catch (error) {
-      console.log(error.message);
+      response = error.message;
     }
+    return response;
   };
 
   const logout = async () => {
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
+    onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
     });
   }, []);

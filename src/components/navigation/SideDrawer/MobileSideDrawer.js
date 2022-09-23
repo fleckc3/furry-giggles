@@ -4,21 +4,21 @@ import {
   List,
   ListItem,
   ListItemText,
-} from "@mui/material";
+} from '@mui/material';
 
 function MobileSideDrawer({ open, onOpen, onClose }) {
   const drawerItems = [
     {
-      id: "1",
-      value: "Home",
+      id: '1',
+      value: 'Home',
     },
     {
-      id: "2",
-      value: "Profile",
+      id: '2',
+      value: 'Profile',
     },
     {
-      id: "3",
-      value: "Messages",
+      id: '3',
+      value: 'Messages',
     },
   ];
 
@@ -31,7 +31,7 @@ function MobileSideDrawer({ open, onOpen, onClose }) {
         onClose={onClose}
       >
         <List>
-          {drawerItems.map((item) => (
+          {drawerItems.map(item => (
             <ListItem button key={item.id}>
               <ListItemText primary={item.value} />
             </ListItem>

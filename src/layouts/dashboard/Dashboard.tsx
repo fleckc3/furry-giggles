@@ -1,12 +1,11 @@
-import { NavBar } from "src/components/navigation/NavBar";
-import { Box } from "@mui/system";
+import { NavBar } from 'src/components/navigation/NavBar';
+import { Box } from '@mui/system';
 import {
   DesktopSideDrawer,
   MobileSideDrawer,
-} from "src/components/navigation/SideDrawer";
-import { CssBaseline } from "@mui/material";
-import { useState } from "react";
-
+} from 'src/components/navigation/SideDrawer';
+import { CssBaseline } from '@mui/material';
+import { useState } from 'react';
 
 type Props = {
   children: JSX.Element;
@@ -16,17 +15,17 @@ function Dashboard({ children }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMenuClick = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen(prev => !prev);
   };
 
   return (
     <Box
       sx={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        flex: "1 1 auto",
-        overflow: "hidden",
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flex: '1 1 auto',
+        overflow: 'hidden',
       }}
     >
       <CssBaseline />

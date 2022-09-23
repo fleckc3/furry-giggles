@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^9.9.2",
+    "notistack": "^2.0.5",
     "react": "^18.0.0",
     "react-big-calendar": "^0.40.1",
     "react-dom": "^18.0.0",
@@ -24,7 +25,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:fix": "eslint --fix --ext .js,.jsx ./src",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|jsx|json|css|less|scss|html|md)\""
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +48,15 @@
     ]
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-kentcdodds": "^20.4.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1",
     "typescript": "^4.7.4"
   }
 }

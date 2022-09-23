@@ -9,14 +9,16 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import TextFieldInput from 'src/components/rhf-inputs/TextFieldInput';
 import { EmailInput } from 'src/components/rhf-inputs';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import useAuth from 'src/hooks/useAuth';
 import { useForm, FormProvider } from 'react-hook-form';
-import TextFieldInput from 'src/components/rhf-inputs/TextFieldInput';
 
 function Login() {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({
     defaultValues: {
       email: '',
@@ -29,10 +31,29 @@ function Login() {
 
   const { loginEmailPassword } = useAuth();
 
-  const loginHandler = (formValues: { email: string; password: string }) => {
+  const loginHandler = async (formValues: {
+    email: string;
+    password: string;
+  }) => {
     const { email, password } = formValues;
-    loginEmailPassword(email, password);
-    navigate('/home');
+    const response: string = await loginEmailPassword(email, password);
+    if (response === 'SUCCESS') {
+      enqueueSnackbar(`Welcome back ${email}`, { variant: 'success' });
+      navigate('/home');
+    } else {
+      if (
+        response.includes('auth/user-not-found') ||
+        response.includes('auth/wrong-password')
+      ) {
+        enqueueSnackbar('Incorrect email or password', {
+          variant: 'error',
+        });
+      } else {
+        enqueueSnackbar(response, {
+          variant: 'error',
+        });
+      }
+    }
   };
 
   return (

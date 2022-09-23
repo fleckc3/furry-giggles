@@ -5,11 +5,14 @@ import {
   Toolbar,
   Typography,
   Button,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { SetStateAction, Dispatch } from "react";
-import { useNavigate } from "react-router-dom";
-import useAuth from "src/hooks/useAuth";
+  Avatar,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+
+import { SetStateAction, Dispatch } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from 'src/hooks/useAuth';
 
 type Props = {
   guest?: boolean;
@@ -22,35 +25,42 @@ function DesktopNavBar({ onMenuClick, guest }: Props) {
 
   const handleClick = () => {
     if (user) {
-      console.log("made it to user");
-
       logout();
     } else {
-      console.log("made it here");
-      navigate("sign-in");
+      navigate('sign-in');
     }
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{
-              mr: 2,
-            }}
-            onClick={onMenuClick}
+          {guest ? (
+            <Avatar sx={{ bgcolor: 'secondary.main' }}>
+              <EventAvailableIcon />
+            </Avatar>
+          ) : (
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{
+                mr: 2,
+              }}
+              onClick={onMenuClick}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, ml: guest ? 2 : undefined }}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Gigiddy
           </Typography>
           <Button color="inherit" onClick={handleClick}>
-            {user ? "Logout" : "Login"}
+            {user ? 'Logout' : 'Login'}
           </Button>
         </Toolbar>
       </AppBar>

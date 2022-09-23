@@ -7,24 +7,24 @@ import {
   List,
   ListItem,
   ListItemText,
-} from "@mui/material";
-import { ChevronLeft } from "@mui/icons-material";
+} from '@mui/material';
+import { ChevronLeft } from '@mui/icons-material';
 
 const drawerWidth = 240;
 
 function DesktopSideDrawer({ isOpen, close }) {
   const drawerItems = [
     {
-      id: "1",
-      value: "Home",
+      id: '1',
+      value: 'Home',
     },
     {
-      id: "2",
-      value: "Profile",
+      id: '2',
+      value: 'Profile',
     },
     {
-      id: "3",
-      value: "Messages",
+      id: '3',
+      value: 'Messages',
     },
   ];
 
@@ -35,21 +35,21 @@ function DesktopSideDrawer({ isOpen, close }) {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          "& .MuiDrawer-paper": {
+          '& .MuiDrawer-paper': {
             width: drawerWidth,
-            boxSizing: "border-box",
+            boxSizing: 'border-box',
           },
         }}
         anchor="left"
       >
         <Box
-          sx={(theme) => ({
-            display: "flex",
-            alignItems: "center",
+          sx={theme => ({
+            display: 'flex',
+            alignItems: 'center',
             padding: theme.spacing(0, 1),
             // necessary for content to be below app bar
             ...theme.mixins.toolbar,
-            justifyContent: "flex-end",
+            justifyContent: 'flex-end',
           })}
         >
           <IconButton onClick={close}>
@@ -58,7 +58,7 @@ function DesktopSideDrawer({ isOpen, close }) {
         </Box>
         <Divider variant="middle" />
         <List>
-          {drawerItems.map((item) => (
+          {drawerItems.map(item => (
             <ListItem button key={item.id}>
               <ListItemText primary={item.value} />
             </ListItem>

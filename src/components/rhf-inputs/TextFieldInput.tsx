@@ -3,9 +3,9 @@ import {
   InputAdornment,
   TextField,
   TextFieldProps,
-  OutlinedTextFieldProps
-} from "@mui/material";
-import { Controller, RegisterOptions } from "react-hook-form";
+  OutlinedTextFieldProps,
+} from '@mui/material';
+import { Controller, RegisterOptions } from 'react-hook-form';
 
 type Props = {
   name: string;
@@ -18,7 +18,9 @@ type Props = {
   size?: string;
 };
 
-export type TextFieldInputProps = Props & TextFieldProps & OutlinedTextFieldProps;
+export type TextFieldInputProps = Props &
+  TextFieldProps &
+  OutlinedTextFieldProps;
 
 const MAX_LENGTH = 256;
 
@@ -35,13 +37,13 @@ function TextFieldInput({
   let inputRules = { ...rules };
 
   if (required) {
-    inputRules.required = "This field is required";
+    inputRules.required = 'This field is required';
   }
   return (
     <Controller
       name={name}
       rules={inputRules}
-      defaultValue={defaultValue || ""}
+      defaultValue={defaultValue || ''}
       render={({
         field: { onChange, onBlur, value, name, ref },
         fieldState: { error },
@@ -61,7 +63,7 @@ function TextFieldInput({
             helperText={error?.message || helperText}
             inputProps={{
               maxLength: MAX_LENGTH,
-              "data-testid": name + "-input",
+              'data-testid': name + '-input',
               ...inputProps,
             }}
             InputProps={{

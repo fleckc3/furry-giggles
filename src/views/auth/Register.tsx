@@ -10,12 +10,15 @@ import {
   Typography,
 } from '@mui/material';
 import { EmailInput } from 'src/components/rhf-inputs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from 'src/hooks/useAuth';
+import { useSnackbar } from 'notistack';
 import { useForm, FormProvider } from 'react-hook-form';
 import TextFieldInput from 'src/components/rhf-inputs/TextFieldInput';
 
 function Register() {
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({
     defaultValues: {
       email: '',
@@ -25,17 +28,39 @@ function Register() {
     mode: 'onBlur',
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, getValues, reset } = methods;
 
   const { registerEmailPassword } = useAuth();
 
-  const registerHandler = (formValues: {
+  const registerHandler = async (formValues: {
     email: string;
     password: string;
     confirmPassword: string;
   }) => {
     const { email, password } = formValues;
-    registerEmailPassword(email, password);
+    const response = await registerEmailPassword(email, password);
+    if (response === 'SUCCESS') {
+      enqueueSnackbar('Registered successfully', { variant: 'success' });
+      navigate('/login');
+    } else {
+      if (response.includes('auth/email-already-in-use')) {
+        enqueueSnackbar('This email is already registered', {
+          variant: 'error',
+        });
+      } else {
+        enqueueSnackbar(response, {
+          variant: 'error',
+        });
+      }
+    }
+    reset();
+  };
+
+  const validatePassword = (value: string) => {
+    const password = getValues('password');
+    if (value !== password) {
+      return 'Passwords do not match';
+    }
   };
 
   return (
@@ -73,6 +98,7 @@ function Register() {
                     size="small"
                     label="Confirm Password"
                     type="password"
+                    rules={{ validate: validatePassword }}
                     required
                     fullWidth
                   />

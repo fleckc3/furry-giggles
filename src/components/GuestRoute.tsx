@@ -2,17 +2,16 @@ import useAuth from 'src/hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 import { ReactNode } from 'react';
 
-type ProtectedProps = {
+type GuestRouteProps = {
   children: ReactNode;
 };
 
-function ProtectedRoute({ children }: ProtectedProps) {
+function GuestRoute({ children }: GuestRouteProps) {
   const { user } = useAuth();
-  if (!user) {
-    return <Navigate to="/sign-in" replace />;
+  if (user) {
+    return <Navigate to="/home" replace />;
   }
-
   return <>{children}</>;
 }
 
-export default ProtectedRoute;
+export default GuestRoute;
