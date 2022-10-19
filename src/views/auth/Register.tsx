@@ -47,6 +47,10 @@ function Register() {
         enqueueSnackbar('This email is already registered', {
           variant: 'error',
         });
+      } else if (response.includes('WEAK_PASSWORD')) {
+        enqueueSnackbar('Password should be at least 6 characters', {
+          variant: 'warning',
+        });
       } else {
         enqueueSnackbar(response, {
           variant: 'error',

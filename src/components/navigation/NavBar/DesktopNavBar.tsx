@@ -1,25 +1,20 @@
 import {
   AppBar,
   Box,
-  IconButton,
   Toolbar,
   Typography,
   Button,
   Avatar,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-
-import { SetStateAction, Dispatch } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from 'src/hooks/useAuth';
 
-type Props = {
+type DesktopNavBarProps = {
   guest?: boolean;
-  onMenuClick: Dispatch<SetStateAction<any>>;
 };
 
-function DesktopNavBar({ onMenuClick, guest }: Props) {
+function DesktopNavBar({ guest }: DesktopNavBarProps) {
   const { user, logout } = useAuth();
   let navigate = useNavigate();
 
@@ -32,36 +27,23 @@ function DesktopNavBar({ onMenuClick, guest }: Props) {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: theme => theme.zIndex.drawer + 1 }}
+      >
         <Toolbar>
-          {guest ? (
-            <Avatar sx={{ bgcolor: 'secondary.main' }}>
-              <EventAvailableIcon />
-            </Avatar>
-          ) : (
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{
-                mr: 2,
-              }}
-              onClick={onMenuClick}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, ml: guest ? 2 : undefined }}
-          >
+          <Avatar sx={{ bgcolor: 'secondary.main', mr: 2 }}>
+            <EventAvailableIcon />
+          </Avatar>
+
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Gigiddy
           </Typography>
-          <Button color="inherit" onClick={handleClick}>
-            {user ? 'Logout' : 'Login'}
-          </Button>
+          {!guest && (
+            <Button color="inherit" onClick={handleClick}>
+              {user ? 'Logout' : 'Login'}
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

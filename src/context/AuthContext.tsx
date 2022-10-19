@@ -3,6 +3,8 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithRedirect,
 } from 'firebase/auth';
 import { useState, useEffect, createContext } from 'react';
 import { auth } from 'src/firebase-config';
@@ -15,6 +17,7 @@ interface ContextDefaultValue {
   user: any | null;
   registerEmailPassword: (arg0: string, arg1: string) => Promise<string>;
   loginEmailPassword: (arg0: string, arg1: string) => Promise<string>;
+  loginWithGoogle: any;
   logout: VoidFunction;
 }
 
@@ -22,6 +25,7 @@ export const AuthContext = createContext<ContextDefaultValue>({
   ...initialState,
   registerEmailPassword: async () => '',
   loginEmailPassword: async () => '',
+  loginWithGoogle: async () => '',
   logout: () => null,
 });
 
@@ -60,6 +64,18 @@ export const AuthProvider = ({ children }: any) => {
     return response;
   };
 
+  const loginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    let response;
+    try {
+      await signInWithRedirect(auth, provider);
+      response = 'SUCCESS';
+    } catch (error) {
+      response = error.message;
+    }
+    return response;
+  };
+
   const logout = async () => {
     await signOut(auth);
   };
@@ -76,6 +92,7 @@ export const AuthProvider = ({ children }: any) => {
         user,
         registerEmailPassword,
         loginEmailPassword,
+        loginWithGoogle,
         logout,
       }}
     >

@@ -56,9 +56,11 @@ function MobileNavBar({ onMenuClick, guest }: Props) {
             Gigiddy
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Button color="inherit" onClick={handleClick}>
-            {user ? 'Logout' : 'Login'}
-          </Button>
+          {!guest && (
+            <Button color="inherit" onClick={handleClick}>
+              {user ? 'Logout' : 'Login'}
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>

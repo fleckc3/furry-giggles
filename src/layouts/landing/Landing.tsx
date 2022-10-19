@@ -1,22 +1,12 @@
 import { Box, CssBaseline } from '@mui/material';
 import { ReactNode } from 'react';
 import { NavBar } from 'src/components/navigation/NavBar';
-import {
-  DesktopSideDrawer,
-  MobileSideDrawer,
-} from 'src/components/navigation/SideDrawer';
-import { useState } from 'react';
 
 type LandingProps = {
   children: ReactNode;
 };
 
 function Landing({ children }: LandingProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleMenuClick = () => {
-    setIsOpen(prev => !prev);
-  };
   return (
     <Box
       sx={{
@@ -28,13 +18,7 @@ function Landing({ children }: LandingProps) {
       }}
     >
       <CssBaseline />
-      <NavBar isGuest={true} onMenuClick={handleMenuClick} />
-      <DesktopSideDrawer isOpen={isOpen} close={() => setIsOpen(false)} />
-      <MobileSideDrawer
-        open={isOpen}
-        onOpen={() => setIsOpen(true)}
-        onClose={() => setIsOpen(false)}
-      />
+      <NavBar isGuest={true} />
       <main>{children}</main>
     </Box>
   );

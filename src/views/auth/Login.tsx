@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import TextFieldInput from 'src/components/rhf-inputs/TextFieldInput';
 import { EmailInput } from 'src/components/rhf-inputs';
+import GoogleIcon from '@mui/icons-material/Google';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import useAuth from 'src/hooks/useAuth';
@@ -29,7 +30,7 @@ function Login() {
 
   const { handleSubmit } = methods;
 
-  const { loginEmailPassword } = useAuth();
+  const { loginEmailPassword, loginWithGoogle } = useAuth();
 
   const loginHandler = async (formValues: {
     email: string;
@@ -56,6 +57,14 @@ function Login() {
     }
   };
 
+  const loginWithGoogleHandler = async () => {
+    const response: string = await loginWithGoogle();
+    if (response === 'SUCCESS') {
+      enqueueSnackbar(`Welcome back!`, { variant: 'success' });
+      navigate('/home');
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -73,6 +82,14 @@ function Login() {
             <form>
               <CardContent>
                 <Stack spacing={2}>
+                  <Button
+                    startIcon={<GoogleIcon />}
+                    variant="outlined"
+                    sx={{ mb: 4 }}
+                    onClick={loginWithGoogleHandler}
+                  >
+                    Login with Google
+                  </Button>
                   <EmailInput name="email" size="small" required />
 
                   <TextFieldInput

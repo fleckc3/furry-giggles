@@ -56,6 +56,7 @@ export default function ThemeProvider({ children }) {
         paper: '#ffffff',
       },
       divider: 'rgba(0,0,0,0.2)',
+      white: '#ffffff',
     },
     spacing: 8,
     shape: {
