@@ -1,6 +1,5 @@
 import { NavBar } from 'src/components/navigation/NavBar';
-import { Box } from '@mui/system';
-import { CssBaseline } from '@mui/material';
+import { Box, CssBaseline } from '@mui/material';
 
 type Props = {
   children: JSX.Element;

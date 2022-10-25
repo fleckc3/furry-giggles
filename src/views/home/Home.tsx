@@ -1,5 +1,7 @@
-import { Box } from '@mui/material';
-import DashboardTabs from './components/DashboardTabs';
+import { Box, Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import GroupList from './components/GroupList';
+// import DashboardTabs from './components/DashboardTabs';
 
 function Home() {
   return (
@@ -11,7 +13,14 @@ function Home() {
         overflow: 'hidden',
       }}
     >
-      <DashboardTabs />
+      <Fab
+        sx={{ position: 'absolute', bottom: '40px', right: 10 }}
+        color="primary"
+        aria-label="add"
+      >
+        <AddIcon />
+      </Fab>
+      <GroupList />
     </Box>
   );
 }

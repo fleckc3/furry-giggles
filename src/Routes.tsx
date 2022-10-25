@@ -1,6 +1,7 @@
 import ProtectedRoute from './components/ProtectedRoute';
 import GuestRoute from './components/GuestRoute';
 import Dashboard from './layouts/dashboard/Dashboard';
+import OnboardingLayout from './layouts/onboarding/OnboardingLayout';
 import Landing from './layouts/landing/Landing';
 import LinearLoadingScreen from './components/progress-bar/LinearLoadingScreen';
 import { Route, Routes as Switch, Navigate } from 'react-router-dom';
@@ -12,6 +13,12 @@ const routes = [
     layout: Dashboard,
     path: '/home',
     component: lazy(() => import('src/views/home')),
+  },
+  {
+    guard: ProtectedRoute,
+    layout: OnboardingLayout,
+    path: '/welcome',
+    component: lazy(() => import('src/views/onboarding')),
   },
   {
     guard: GuestRoute,

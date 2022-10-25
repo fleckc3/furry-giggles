@@ -5,6 +5,8 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithRedirect,
+  updateProfile,
+  User,
 } from 'firebase/auth';
 import { useState, useEffect, createContext } from 'react';
 import { auth } from 'src/firebase-config';
@@ -17,6 +19,7 @@ interface ContextDefaultValue {
   user: any | null;
   registerEmailPassword: (arg0: string, arg1: string) => Promise<string>;
   loginEmailPassword: (arg0: string, arg1: string) => Promise<string>;
+  updateUserProfile: (arg0: string) => void;
   loginWithGoogle: any;
   logout: VoidFunction;
 }
@@ -26,6 +29,7 @@ export const AuthContext = createContext<ContextDefaultValue>({
   registerEmailPassword: async () => '',
   loginEmailPassword: async () => '',
   loginWithGoogle: async () => '',
+  updateUserProfile: async () => '',
   logout: () => null,
 });
 
@@ -76,6 +80,19 @@ export const AuthProvider = ({ children }: any) => {
     return response;
   };
 
+  const updateUserProfile = async (username: string) => {
+    try {
+      await updateProfile(user, {
+        displayName: username,
+      });
+
+      return 'SUCCESS';
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  };
+
   const logout = async () => {
     await signOut(auth);
   };
@@ -93,6 +110,7 @@ export const AuthProvider = ({ children }: any) => {
         registerEmailPassword,
         loginEmailPassword,
         loginWithGoogle,
+        updateUserProfile,
         logout,
       }}
     >

@@ -41,7 +41,7 @@ function Register() {
     const response = await registerEmailPassword(email, password);
     if (response === 'SUCCESS') {
       enqueueSnackbar('Registered successfully', { variant: 'success' });
-      navigate('/login');
+      navigate('/welcome');
     } else {
       if (response.includes('auth/email-already-in-use')) {
         enqueueSnackbar('This email is already registered', {
