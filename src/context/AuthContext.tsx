@@ -6,10 +6,10 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   updateProfile,
-  User,
 } from 'firebase/auth';
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { useState, useEffect, createContext } from 'react';
-import { auth } from 'src/firebase-config';
+import { auth, db } from 'src/firebase-config';
 
 const initialState = {
   user: null,
@@ -19,7 +19,7 @@ interface ContextDefaultValue {
   user: any | null;
   registerEmailPassword: (arg0: string, arg1: string) => Promise<string>;
   loginEmailPassword: (arg0: string, arg1: string) => Promise<string>;
-  updateUserProfile: (arg0: string) => void;
+  updateUserProfile: (arg0: string, arg1: string) => void;
   loginWithGoogle: any;
   logout: VoidFunction;
 }
@@ -42,11 +42,15 @@ export const AuthProvider = ({ children }: any) => {
   ) => {
     let response;
     try {
-      await createUserWithEmailAndPassword(
+      const { user } = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
+
+      const userRef = doc(db, 'users', user.uid);
+      await setDoc(userRef, { userName: '', profileImage: '' });
+
       response = 'SUCCESS';
     } catch (error) {
       response = error.message;
@@ -80,10 +84,17 @@ export const AuthProvider = ({ children }: any) => {
     return response;
   };
 
-  const updateUserProfile = async (username: string) => {
+  const updateUserProfile = async (username: string, url: string) => {
     try {
       await updateProfile(user, {
         displayName: username,
+        photoURL: url ? url : '',
+      });
+
+      const userRef = doc(db, 'users', user.uid);
+      await updateDoc(userRef, {
+        userName: username,
+        profileImage: url ? url : '',
       });
 
       return 'SUCCESS';

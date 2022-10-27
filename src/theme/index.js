@@ -63,6 +63,11 @@ export default function ThemeProvider({ children }) {
       borderRadius: 4,
     },
     direction: 'ltr',
+    typography: {
+      button: {
+        textTransform: 'none',
+      },
+    },
   };
 
   const theme = createTheme(themeOptions);

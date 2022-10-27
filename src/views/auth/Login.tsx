@@ -13,6 +13,7 @@ import TextFieldInput from 'src/components/rhf-inputs/TextFieldInput';
 import { EmailInput } from 'src/components/rhf-inputs';
 import GoogleIcon from '@mui/icons-material/Google';
 import { Link, useNavigate } from 'react-router-dom';
+import { SUCCESS } from 'src/constants';
 import { useSnackbar } from 'notistack';
 import useAuth from 'src/hooks/useAuth';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -38,7 +39,7 @@ function Login() {
   }) => {
     const { email, password } = formValues;
     const response: string = await loginEmailPassword(email, password);
-    if (response === 'SUCCESS') {
+    if (response === SUCCESS) {
       enqueueSnackbar(`Welcome back ${email}`, { variant: 'success' });
       navigate('/home');
     } else {
@@ -59,7 +60,7 @@ function Login() {
 
   const loginWithGoogleHandler = async () => {
     const response: string = await loginWithGoogle();
-    if (response === 'SUCCESS') {
+    if (response === SUCCESS) {
       enqueueSnackbar(`Welcome back!`, { variant: 'success' });
       navigate('/home');
     }

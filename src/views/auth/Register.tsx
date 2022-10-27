@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { EmailInput } from 'src/components/rhf-inputs';
 import { Link, useNavigate } from 'react-router-dom';
+import { SUCCESS } from 'src/constants';
 import useAuth from 'src/hooks/useAuth';
 import { useSnackbar } from 'notistack';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -39,7 +40,7 @@ function Register() {
   }) => {
     const { email, password } = formValues;
     const response = await registerEmailPassword(email, password);
-    if (response === 'SUCCESS') {
+    if (response === SUCCESS) {
       enqueueSnackbar('Registered successfully', { variant: 'success' });
       navigate('/welcome');
     } else {
