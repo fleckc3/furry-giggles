@@ -1,1 +1,1 @@
-export { default } from "./LinearLoadingScreen";
+export { default } from './LinearLoadingScreen';

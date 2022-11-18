@@ -74,7 +74,7 @@ function Step2({ onNextStep }: Step2Props) {
 
     try {
       await addDoc(collection(db, 'groups'), {
-        admin: user.uid,
+        admin: user!.uid,
         name: groupName,
       });
       onNextStep(2);

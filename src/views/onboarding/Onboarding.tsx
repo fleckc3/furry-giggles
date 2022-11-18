@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 const steps = ['Create profile', 'Create group'];
 
 function Onboarding() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const navigate = useNavigate();
 
   return (
@@ -27,7 +27,7 @@ function Onboarding() {
       <Container>
         <Box sx={{ mt: 3 }}>
           <Typography color="primary" textAlign="center" variant="h4">
-            Welcome to Gigiddy!
+            Welcome to Gigiddy
           </Typography>
           <FeatureIconRow />
         </Box>

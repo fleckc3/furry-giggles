@@ -32,12 +32,12 @@ type Step1Props = {
 };
 
 function Step1({ onNextStep }: Step1Props) {
-  const { updateUserProfile }: any = useAuth();
+  const { onBoardUser }: any = useAuth();
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [showNext, setShowNext] = useState(false);
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const methods = useForm({
     defaultValues: {
@@ -83,24 +83,33 @@ function Step1({ onNextStep }: Step1Props) {
       try {
         await uploadBytes(imageRef, image);
         const url = await getDownloadURL(imageRef);
-        response = await updateUserProfile(userName, url);
+        response = await onBoardUser(userName, url);
 
         setImage(null);
         setLoading(false);
       } catch (error) {
-        enqueueSnackbar(error.message, { variant: 'error' });
+        const snack = enqueueSnackbar(error.message, {
+          variant: 'error',
+          onClick: () => closeSnackbar(snack),
+        });
         setLoading(false);
       }
     } else {
-      response = await updateUserProfile(userName);
+      response = await onBoardUser(userName);
     }
 
     if (response === SUCCESS) {
       const message = `Username ${image ? 'and image ' : ''} updated`;
-      enqueueSnackbar(message, { variant: 'success' });
+      const snack = enqueueSnackbar(message, {
+        variant: 'success',
+        onClick: () => closeSnackbar(snack),
+      });
       setShowNext(true);
     } else {
-      enqueueSnackbar(response, { variant: 'error' });
+      const snack = enqueueSnackbar(response, {
+        variant: 'error',
+        onClick: () => closeSnackbar(snack),
+      });
     }
   };
 

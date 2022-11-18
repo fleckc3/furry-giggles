@@ -38,7 +38,7 @@ function Login() {
     password: string;
   }) => {
     const { email, password } = formValues;
-    const response: string = await loginEmailPassword(email, password);
+    const response = await loginEmailPassword(email, password);
     if (response === SUCCESS) {
       enqueueSnackbar(`Welcome back ${email}`, { variant: 'success' });
       navigate('/home');

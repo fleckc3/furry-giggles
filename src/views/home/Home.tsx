@@ -1,9 +1,16 @@
 import { Box, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import GroupList from './components/GroupList';
+import useAuth from 'src/hooks/useAuth';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from 'src/firebase-config';
+import { useEffect, useState } from 'react';
+
 // import DashboardTabs from './components/DashboardTabs';
 
 function Home() {
+  const { user } = useAuth();
+
   return (
     <Box
       sx={{
