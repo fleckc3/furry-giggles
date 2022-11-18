@@ -19,20 +19,6 @@ function ProtectedRoute({ children }: ProtectedProps) {
     return <Navigate to="/welcome" replace />;
   }
 
-  // if (userData) {
-  //   const { onBoarded } = userData;
-
-  //   if (location.pathname === '/welcome') {
-  //     if (onBoarded) {
-  //       return <Navigate to="/home" replace />;
-  //     }
-  //   } else {
-  //     if (!onBoarded) {
-  //       return <Navigate to="/welcome" replace />;
-  //     }
-  //   }
-  // }
-
   return <>{children}</>;
 }
 
